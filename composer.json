@@ -1,6 +1,7 @@
 {
     "name": "codesleeve/sprockets",
     "description": "",
+    "license": "MIT",
     "authors": [
         {
             "name": "Kelt Dockins",
