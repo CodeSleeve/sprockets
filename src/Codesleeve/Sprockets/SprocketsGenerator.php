@@ -15,8 +15,7 @@ class SprocketsGenerator
      */
     public function __construct(array $config)
     {
-        $this->parser = new DirectivesParser($config);
-        $this->cache = $this->parser->get('cache');
+        $this->config = $config;
     }
 
     /**
@@ -49,7 +48,7 @@ class SprocketsGenerator
      */
     public function file($absolutePath, $concat = null)
     {
-        $concat = is_null($concat) ? $this->parser->concat() : $concat;
+        $concat = is_null($concat) ? $this->parser()->concat() : $concat;
 
         return new FileAsset($absolutePath, $this->filters($absolutePath, $concat));
     }
@@ -62,15 +61,15 @@ class SprocketsGenerator
      */
     public function filters($absolutePath, $concat = false)
     {
-        $extension = $this->parser->extensionForFile($absolutePath);
+        $extension = $this->parser()->extensionForFile($absolutePath);
 
-        $filters = isset($this->parser->filters[$extension]) ? $this->parser->filters[$extension] : array();
+        $filters = isset($this->parser()->filters[$extension]) ? $this->parser()->filters[$extension] : array();
 
         if (!$concat) {
             return $filters;
         }
 
-        return array(new SprocketsFilter($this->parser, $this));
+        return array(new SprocketsFilter($this->parser(), $this));
     }
 
     /**
@@ -83,7 +82,16 @@ class SprocketsGenerator
     {
         $file = $this->file($absolutePath);
 
-        return new AssetCache($file, $this->cache);
+        return new AssetCache($file, $this->parser()->get('cache'));
     }
 
+    /**
+     * Gets us a new parser
+     * 
+     * @return DirectivesParser
+     */
+    protected function parser()
+    {
+        return new DirectivesParser($this->config);
+    }
 }

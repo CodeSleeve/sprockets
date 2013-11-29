@@ -49,10 +49,7 @@ class ExtensionsParser extends ConfigParser
      */
     public function isValidExtension($extension, $mime)
     {
-        $mimes = $this->get("mimes.$mime", '');
-        $mimes = str_replace(' ', '', $mimes);
-        $mimes = explode(',', $mimes);
-
+        $mimes = $this->get("mimes.$mime", array());
         return is_null($mime) || in_array($extension, $mimes);
     }
 
@@ -108,8 +105,7 @@ class ExtensionsParser extends ConfigParser
 
         foreach ($mimesets as $mimetype => $mimeset)
         {
-            $mimes = explode(',', str_replace(' ', '', $mimeset));
-            if (in_array($extension, $mimes)) {
+            if (in_array($extension, $mimeset)) {
                 return $mimetype;
             }
         }
