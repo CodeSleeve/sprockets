@@ -1,0 +1,30 @@
+<div class="item-graphic col-xs-3 col-lg-2">
+    <img src="{{thumbnail url}}" class="img-thumbnail img-responsive">
+</div>
+<div class="item-summary col-xs-9 col-lg-10">
+    <h4>{{title}}</h4>
+    <div class="js-controls controls">
+        
+        <a href="/profiles/{{profile.id}}">
+            <i class="icon-user"></i> 
+            View profile
+        </a>
+        |
+        <a class="js-toggle-following" href="">
+            <i class="icon-plus"></i>
+            {{is_following_text}}
+        </a>
+        <!--
+        |
+        <a class="js-toggle-onhold" href="">
+            <i class="icon-asterisk"></i>
+            {{is_onhold_text}}
+        </a>
+        -->
+        |
+        <a class="js-make-note" href="">
+            <i class="icon-pencil"></i>            
+            Make note
+        </a>
+    </div>
+</div>

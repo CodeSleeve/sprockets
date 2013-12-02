@@ -1,0 +1,45 @@
+<div class="item-graphic col-xs-3 col-lg-2">
+    <img src="{{image_src}}" class="img-thumbnail img-responsive">
+</div>
+<div class="item-content col-xs-9 col-lg-10">
+    <h4>
+        <a class="js-toggle-post" href="#">
+            {{title}} <i class="icon-double-angle-down"></i>
+        </a>
+    </h4>
+    <div class="item-controls">
+        <a class="js-toggle-post-unread" href="">
+            <i class="icon-book"></i>
+            <span>{{unread_text}}</span>
+        </a>
+        |
+        <a class="read-later js-toggle-read-later" href="">
+            <i class="icon-time"></i>
+            <span>{{read_later_text}}</span>
+        </a>
+        |
+        <a class="favorite js-toggle-favorite" href="">
+            <i class="icon-heart"></i>
+            <span>{{favorited_text}}</span>
+        </a>
+        |
+        <a class="" target="_blank" href="{{url}}">
+            <i class="icon-link"></i> Go To Post
+        </a>
+        |
+        <a class="js-send-email" href="">
+            <i class="icon-envelope"></i>
+        </a>
+        <a class="js-share-with-facebook" href="">
+            <i class="icon-facebook-sign"></i>
+        </a>
+        <a class="js-share-with-twitter" href="">
+            <i class="icon-twitter-sign"></i>
+        </a>
+    </div>
+    <div class="item-content">{{{description}}}</div>
+    <div>
+        <a href="{{blog.url}}">{{blog.title}}</a> |
+        <i class="icon-time"></i> {{date time=created_at format="MMMM Do YYYY, h:mm a"}}
+    </div>
+</div>
