@@ -67,22 +67,4 @@ class BaseDirective implements DirectiveInterface
 		return $paths;
 	}
 
-	/**
-	 * Replaces the . or ./ with just an empty string
-	 * so we get a relative path feel
-	 * 
-	 * @param  [type] $filepath [description]
-	 * @return [type]           [description]
-	 */
-	public function replaceSlashAndDot($filepath, $withString = '')
-	{
-		$filepath = preg_replace('/^\./', $withString, $filepath);
-		$filepath = preg_replace('/^\\//', $withString, $filepath);
-
-		if ($filepath) {
-			$filepath = "/$filepath";
-		}
-
-		return $filepath;
-	}
 }

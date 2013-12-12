@@ -57,12 +57,12 @@ class DirectivesParser extends PathParser
     {
         foreach ($this->directives as $directive_name => $directive)
         {
-            $params = $this->checkForDirective($directive_name, $line);
+            $param = $this->checkForDirective($directive_name, $line);
             
             if ($param)
             {
                 $directive->initialize($this, $filename);
-                return $directive->process($params);
+                return $directive->process($param);
             }
         }
 
