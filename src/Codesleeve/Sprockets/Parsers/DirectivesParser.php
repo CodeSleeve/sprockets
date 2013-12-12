@@ -1,13 +1,5 @@
 <?php namespace Codesleeve\Sprockets\Parsers;
 
-use Codesleeve\Sprockets\Directives\RequireFile;
-use Codesleeve\Sprockets\Directives\RequireDirectory;
-use Codesleeve\Sprockets\Directives\RequireTree;
-use Codesleeve\Sprockets\Directives\RequireSelf;
-use Codesleeve\Sprockets\Directives\DependOn;
-use Codesleeve\Sprockets\Directives\IncludeFile;
-use Codesleeve\Sprockets\Directives\Stub;
-
 class DirectivesParser extends PathParser
 {
     /**
@@ -43,7 +35,8 @@ class DirectivesParser extends PathParser
             return array();
         }
 
-        foreach ($tokens as $token) {
+        foreach ($tokens as $token)
+        {
             if (strpos($line, $token) === 0) {
                 $directive = trim(substr($line, strlen($token)));
                 return $this->processDirective($directive, $filename);
@@ -62,26 +55,21 @@ class DirectivesParser extends PathParser
      */
     private function processDirective($line, $filename)
     {
-        $directives = array(
-            'require ' => new RequireFile($this, $filename),
-            'require_directory' => new RequireDirectory($this, $filename),
-            'require_tree' => new RequireTree($this, $filename),
-            'require_self' => new RequireSelf($this, $filename),
-            'depend_on ' => new DependOn($this, $filename),
-            'include ' => new IncludeFile($this, $filename),
-            'stub ' => new Stub($this, $filename)
-        );
-
-        foreach ($directives as $directive_name => $directive)
+        foreach ($this->directives as $directive_name => $directive)
         {
-            $param = $this->checkForDirective($directive_name, $line);
+            $params = $this->checkForDirective($directive_name, $line);
             
-            if ($param) {
-                return $directive->process($param);
+            if ($param)
+            {
+                $directive->initialize($this, $filename);
+                return $directive->process($params);
             }
         }
 
-        return new Directives\BaseDirective($this);
+        $directive = new \Codesleeve\Sprockets\Directives\BaseDirective;
+        $directive->initialize($this, $filename);
+
+        return $directive->process(null);
     }
 
     /**

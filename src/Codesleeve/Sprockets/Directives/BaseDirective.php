@@ -1,6 +1,8 @@
 <?php namespace Codesleeve\Sprockets\Directives;
 
-class BaseDirective
+use  Codesleeve\Sprockets\Interfaces\DirectiveInterface;
+
+class BaseDirective implements DirectiveInterface
 {
 	/**
 	 * Create a new Base Directive
@@ -8,11 +10,22 @@ class BaseDirective
 	 * @param Parser $parser       
 	 * @param string $manifestFile 
 	 */
-	public function __construct($parser, $manifestFile)
+	public function initialize($parser, $manifestFile)
 	{
 		$this->parser = $parser;
 		$this->manifestFile = $manifestFile;
 		$this->manifestDir = dirname($manifestFile);
+	}
+
+	/**
+	 * We don't recognize the directive name so we are falling back
+	 * 
+	 * @param  string $params
+	 * @return array
+	 */
+	public function process($params)
+	{
+		return array();
 	}
 
 	/**

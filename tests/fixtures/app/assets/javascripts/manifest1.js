@@ -31,12 +31,3 @@
 //= require handlebars
 //= require bootbox.min
 //= require smoke
-//= require bloganizer/app
-//= require_tree bloganizer
-//= require app
-//= require profiles
-//= require claimBlogRequests
-// using the mocks tree so I can mock out data however 
-// I want it to be, until trav fixes the API then I'll only use
-// when running karma/mocha tests
-//-= require_tree mocks
