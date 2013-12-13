@@ -1,178 +1,63 @@
 <?php namespace Codesleeve\Sprockets;
 
 class SprocketsParserTest extends TestCase
-{ 
+{
     public function setUp()
     {
-    	$this->basePath = __DIR__ . '/fixtures';
+        $this->basePath = realpath(__DIR__ . '/fixtures');
 
-    	$config1 = include 'fixtures/config/config1.php';
- 		$config1['base_path'] = $this->basePath;
- 		$this->parser1 = new SprocketsParser($config1);
+        $config = include $this->basePath . '/config/config1.php';
+        $config['base_path'] = $this->basePath;
+
+ 		$this->parser = new SprocketsParser($config);
     }
 
-    public function testJavascriptManifest1()
+    public function testFiles()
     {
-    	$output = $this->parser1->javascriptFiles('manifest1');
-    	$output = $this->stripBasePathFromArray($output);
-    	$this->assertEquals($output, array(
-			"/provider/assets/javascripts/jquery.js",
-			"/provider/assets/javascripts/jquery-ui.js",
-			"/provider/assets/javascripts/jquery.form.js",
-			"/provider/assets/javascripts/jquery.bootstraper.js",
-			"/provider/assets/javascripts/jquery.typing-0.2.0.min.js"
-    	));
+        $output = $this->parser->files('manifest7');
+        $output = $this->stripBasePath($output);
+        $this->assertEquals($output, array('/provider/assets/javascripts/jquery.js'));
     }
 
-    public function testJavascriptManifest2()
+    public function testJavascriptFiles()
     {
-    	$output = $this->parser1->javascriptFiles('manifest2');
-    	$output = $this->stripBasePathFromArray($output);
-    	$this->assertEquals($output, array(
-            '/app/assets/javascripts/app/bindings/data-changer.js',
-            '/app/assets/javascripts/app/bindings/data-colors.js.coffee',
-            '/provider/assets/javascripts/jquery.js',
-    	));
+        $output = $this->parser->javascriptFiles('manifest7');
+        $output = $this->stripBasePath($output);
+        $this->assertEquals($output, array('/provider/assets/javascripts/jquery.js'));
     }
 
-    public function testJavascriptManifest3()
+    public function testStylesheetFiles()
     {
-        $output = $this->parser1->javascriptFiles('manifest3');
-        $output = $this->stripBasePathFromArray($output);
-        $this->assertEquals($output, array(
-            '/provider/assets/javascripts/jquery.js',
-            '/app/assets/javascripts/app/bindings/data-changer.js',
-            '/app/assets/javascripts/app/bindings/data-colors.js.coffee',
-            '/app/assets/javascripts/app/bindings/foobar/bar.js',
-            '/app/assets/javascripts/app/bindings/foobar/foo.js.coffee',
-            '/app/assets/javascripts/app/bindings/foobar/bar/lots_of_recursion.js',
-            '/app/assets/javascripts/app/bindings/subdir/data-foobar.js',
-            '/app/assets/javascripts/app/bindings/subdir/data-model.js',
-        ));
+        $output = $this->parser->stylesheetFiles('manifest7');
+        $output = $this->stripBasePath($output);
+        $this->assertEquals($output, array('/provider/assets/stylesheets/twitter/bootstrap.min.css'));
     }
 
-    public function testJavascriptManifest4()
+    public function testAbsolutePathToWebPath()
     {
-        $output = $this->parser1->javascriptFiles('manifest4');
-        $output = $this->stripBasePathFromArray($output);
-        $this->assertEquals($output, array(
-            '/provider/assets/javascripts/jquery.js',
-            '/app/assets/javascripts/app/bindings/data-changer.js',
-            '/app/assets/javascripts/app/bindings/data-colors.js.coffee',
-            '/app/assets/javascripts/app/bindings/foobar/bar.js',
-            '/app/assets/javascripts/app/bindings/foobar/foo.js.coffee',
-            '/app/assets/javascripts/app/bindings/foobar/bar/lots_of_recursion.js',
-            '/app/assets/javascripts/app/bindings/subdir/data-foobar.js',
-            '/app/assets/javascripts/app/bindings/subdir/data-model.js',
-            '/app/assets/javascripts/manifest4.js'
-        ));
+        $absolutePath = $this->basePath . '/provider/assets/stylesheets/twitter/bootstrap.min.css';
+        $output = $this->parser->absolutePathToWebPath($absolutePath);
+        $this->assertEquals($output, '/assets/twitter/bootstrap.min.css');
     }
 
-    /**
-     * @expectedException Codesleeve\Sprockets\Exceptions\InvalidPathException
-     */
-    public function testJavascriptManifest5()
+    public function testAbsoluteJavascriptPath()
     {
-        $output = $this->parser1->javascriptFiles('manifest5');
+        $output = $this->parser->absoluteJavascriptPath('jquery.js');
+        $output = $this->stripBasePath($output);
+        $this->assertEquals($output, '/provider/assets/javascripts/jquery.js');
     }
 
-    /**
-     * @expectedException Codesleeve\Sprockets\Exceptions\InvalidPathException
-     */
-    public function testJavascriptManifest6()
+    public function testAbsoluteStylesheetPath()
     {
-        $output = $this->parser1->javascriptFiles('manifest6');
+        $output = $this->parser->absoluteStylesheetPath('twitter/bootstrap');
+        $output = $this->stripBasePath($output);
+        $this->assertEquals($output, '/provider/assets/stylesheets/twitter/bootstrap.min.css');
     }
 
-    public function testJavascriptAppApplication()
+    public function testAbsoluteFilePath()
     {
-        $output = $this->parser1->javascriptFiles('app/application');
-        $output = $this->stripBasePathFromArray($output);
-        $this->assertEquals($output, array(
-            '/app/assets/javascripts/app/bindings/data-changer.js',
-            '/app/assets/javascripts/app/bindings/data-colors.js.coffee',
-        ));
+        $output = $this->parser->absoluteFilePath('manifest7.js');
+        $output = $this->stripBasePath($output);
+        $this->assertEquals($output, '/app/assets/javascripts/manifest7.js');
     }
-
-    public function testStylesheetManifest1()
-    {
-        $output = $this->parser1->stylesheetFiles('manifest1');
-        $output = $this->stripBasePathFromArray($output);
-        $this->assertEquals($output, array(
-            '/provider/assets/stylesheets/twitter/bootstrap.min.css',
-            '/provider/assets/stylesheets/font/font-awesome.css',
-        ));
-    }
-
-    public function testStylesheetManifest2()
-    {
-        $output = $this->parser1->stylesheetFiles('manifest2');
-        $output = $this->stripBasePathFromArray($output);
-        $this->assertEquals($output, array(
-            '/provider/assets/stylesheets/twitter/bootstrap.min.css',
-            '/provider/assets/stylesheets/font/font-awesome.css',
-            '/app/assets/stylesheets/app/subdir/add-blog-modal.css.less',
-            '/app/assets/stylesheets/app/subdir/foo.css',
-        ));
-    }
-
-    public function testStylesheetManifest3()
-    {
-        $output = $this->parser1->stylesheetFiles('manifest3');
-        $output = $this->stripBasePathFromArray($output);
-        $this->assertEquals($output, array(
-            '/provider/assets/stylesheets/twitter/bootstrap.min.css',
-            '/provider/assets/stylesheets/font/font-awesome.css',
-            '/app/assets/stylesheets/app/subdir/add-blog-modal.css.less',
-            '/app/assets/stylesheets/app/subdir/foo.css',
-            '/app/assets/stylesheets/app/subdir/foo/bar.css.less',
-        ));
-    }
-
-    public function testStylesheetManifest4()
-    {
-        $output = $this->parser1->stylesheetFiles('manifest4');
-        $output = $this->stripBasePathFromArray($output);
-        $this->assertEquals($output, array(
-            '/provider/assets/stylesheets/twitter/bootstrap.min.css',
-            '/provider/assets/stylesheets/font/font-awesome.css',
-            '/app/assets/stylesheets/manifest4.css',
-        ));
-    }
-
-    /**
-     * @expectedException Codesleeve\Sprockets\Exceptions\InvalidPathException
-     */
-    public function testStylesheetManifest5()
-    {
-        $output = $this->parser1->stylesheetFiles('manifest5');
-    }
-
-    public function testStylesheetManifest6()
-    {
-        $output = $this->parser1->stylesheetFiles('manifest6');
-        $output = $this->stripBasePathFromArray($output);
-        $this->assertEquals($output, array(
-            '/provider/assets/stylesheets/twitter/bootstrap.min.css',
-            '/app/assets/stylesheets/manifest6.css',
-        ));
-    }
-
-    public function testStylesheetAppApplication()
-    {
-        $output = $this->parser1->stylesheetFiles('app/application');
-        $output = $this->stripBasePathFromArray($output);
-        $this->assertEquals($output, array(
-            '/app/assets/stylesheets/app/application.css',
-            '/app/assets/stylesheets/app/dashboard.css.less',
-            '/app/assets/stylesheets/app/fonts.css',
-            '/app/assets/stylesheets/app/home.index.css',
-            '/app/assets/stylesheets/app/login.css.less',
-            '/app/assets/stylesheets/app/main.css.less',
-            '/app/assets/stylesheets/app/subdir/add-blog-modal.css.less',
-            '/app/assets/stylesheets/app/subdir/foo.css',
-            '/app/assets/stylesheets/app/subdir/foo/bar.css.less',
-        ));
-    }
-
 }

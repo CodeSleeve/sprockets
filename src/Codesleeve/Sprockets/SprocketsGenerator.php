@@ -59,7 +59,7 @@ class SprocketsGenerator
      * @param  $absolutePath
      * @return array             
      */
-    public function filters($absolutePath, $concat = false)
+    protected function filters($absolutePath, $concat = false)
     {
         $extension = $this->parser()->extensionForFile($absolutePath);
 

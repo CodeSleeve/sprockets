@@ -33,24 +33,13 @@ class ExtensionsParser extends ConfigParser
     {
         $newfile = $this->stripOffExtensions($filename);
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
+        $extension = $extension ? '.' . $extension : '';
 
         if ($newfile != $filename) {
             $extension = str_replace($newfile, '', $filename);
         }         
 
         return $extension;
-    }
-
-    /**
-     * Returns all the mime types for the current mime
-     * restriction.
-     * 
-     * @return bool
-     */
-    public function isValidExtension($extension, $mime)
-    {
-        $mimes = $this->get("mimes.$mime", array());
-        return is_null($mime) || in_array($extension, $mimes);
     }
 
     /**
@@ -111,5 +100,18 @@ class ExtensionsParser extends ConfigParser
         }
 
         return null;
+    }
+
+    /**
+     * Returns mime types for the current mime
+     * restriction. If no $mime restriction is placed
+     * then this is always true.
+     * 
+     * @return bool
+     */
+    private function isValidExtension($extension, $mime)
+    {
+        $mimes = $this->get("mimes.$mime", array());
+        return is_null($mime) || in_array($extension, $mimes);
     }
 }
