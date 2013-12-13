@@ -1,5 +1,7 @@
 <?php namespace Codesleeve\Sprockets\Directives;
 
+use Codesleeve\Sprockets\Exceptions\InvalidPathException;
+
 class RequireDirectory extends BaseDirective
 {
 	public function process($directory)
