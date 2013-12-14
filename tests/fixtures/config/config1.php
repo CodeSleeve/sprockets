@@ -41,5 +41,7 @@ return array(
 
 	'cache' => null,
 	
-	'concat' => array('production')
+	'concat' => array('production'),
+
+	'sprockets_filter' => 'Codesleeve\Sprockets\SprocketsFilter',
 );

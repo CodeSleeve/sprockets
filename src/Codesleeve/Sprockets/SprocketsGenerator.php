@@ -4,6 +4,7 @@ use Assetic\Asset\AssetCache;
 use Assetic\Asset\FileAsset;
 use Assetic\Cache\FilesystemCache;
 use Codesleeve\Sprockets\Parsers\DirectivesParser;
+use ReflectionClass;
 
 class SprocketsGenerator
 {
@@ -69,7 +70,13 @@ class SprocketsGenerator
             return $filters;
         }
 
-        return array(new SprocketsFilter($this->parser(), $this));
+        $sprocketsFilter = $this->parser()->sprockets_filter;
+        $sprocketsFilter = $sprocketsFilter ? $sprocketsFilter : '\Codesleeve\Sprockets\SprocketsFilter';
+
+        $class = new ReflectionClass($sprocketsFilter);
+        $sprockets = $class->newInstanceArgs(array($this->parser(), $this));
+
+        return array($sprockets);
     }
 
     /**
