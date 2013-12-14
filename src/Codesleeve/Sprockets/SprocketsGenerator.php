@@ -70,10 +70,8 @@ class SprocketsGenerator
             return $filters;
         }
 
-        $sprocketsFilter = $this->parser()->sprockets_filter;
-        $sprocketsFilter = $sprocketsFilter ? $sprocketsFilter : '\Codesleeve\Sprockets\SprocketsFilter';
-
-        $class = new ReflectionClass($sprocketsFilter);
+        $filter = $this->parser()->sprockets_filter ? $this->parser()->sprockets_filter : '\Codesleeve\Sprockets\SprocketsFilter';
+        $class = new ReflectionClass($filter);
         $sprockets = $class->newInstanceArgs(array($this->parser(), $this));
 
         return array($sprockets);
