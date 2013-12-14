@@ -29,13 +29,14 @@ class SprocketsFilter implements FilterInterface
 
         $absoluteFilePaths = $this->parser->getFilesArrayFromDirectives($absolutePath);
 
-        if (!$absoluteFilePaths) {
-            return;
-        }
-
         foreach ($absoluteFilePaths as $absoluteFilePath)
         {
             $files[] = $this->generator->file($absoluteFilePath, false);
+        }
+
+        if (!$absoluteFilePaths)
+        {
+            $files[] = $this->generator->file($absolutePath, false);
         }
 
         $collection = new AssetCollection($files);
