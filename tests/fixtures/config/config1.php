@@ -44,4 +44,9 @@ return array(
 	'concat' => array('production'),
 
 	'sprockets_filter' => 'Codesleeve\Sprockets\SprocketsFilter',
+
+	'sprockets_filters' => array(
+		'javascripts' => array(),
+		'stylesheets' => array(),
+	),
 );

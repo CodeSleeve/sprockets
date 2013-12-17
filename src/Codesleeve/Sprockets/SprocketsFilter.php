@@ -39,7 +39,9 @@ class SprocketsFilter implements FilterInterface
             $files[] = $this->generator->file($absolutePath, false);
         }
 
-        $collection = new AssetCollection($files);
+        $global_filters = $this->parser->get("sprockets_filters.{$this->parser->mime}", array());
+
+        $collection = new AssetCollection($files, $global_filters);
 
         $asset->setContent($collection->dump());
     }
