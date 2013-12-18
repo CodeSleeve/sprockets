@@ -23,11 +23,26 @@ class SprocketsFilter implements FilterInterface
 
         $files = array();
 
+        $extraFiles = array();
+
         $absolutePath = $asset->getSourceRoot() . '/' . $asset->getSourcePath();
 
         $this->parser->mime = $this->parser->mimeType($absolutePath);
 
+        if ($this->parser->mime === 'javascripts') {
+            $extraFiles = $this->parser->get("javascript_files", array());
+        }
+
+        if ($this->parser->mime === 'stylesheets') {
+            $extraFiles = $this->parser->get("stylesheet_files", array());            
+        }
+
         $absoluteFilePaths = $this->parser->getFilesArrayFromDirectives($absolutePath);
+
+        if ($absoluteFilePaths)
+        {
+            $absoluteFilePaths = $extraFiles + $absoluteFilePaths;
+        }
 
         foreach ($absoluteFilePaths as $absoluteFilePath)
         {
