@@ -49,7 +49,9 @@ class SprocketsParser extends Parsers\ConfigParser implements Interfaces\ParserI
             return array($absolutePath);
         }
 
-        return $parser->getFilesArrayFromDirectives($absolutePath);
+        $javascript_files = $parser->get('javascript_files', array());
+
+        return $javascript_files + $parser->getFilesArrayFromDirectives($absolutePath);
     }
 
     /**
@@ -69,7 +71,9 @@ class SprocketsParser extends Parsers\ConfigParser implements Interfaces\ParserI
             return array($absolutePath);
         }
 
-        return $parser->getFilesArrayFromDirectives($absolutePath);
+        $stylesheet_files = $parser->get('stylesheet_files', array());
+
+        return $stylesheet_files + $parser->getFilesArrayFromDirectives($absolutePath);
     }
 
     /**
