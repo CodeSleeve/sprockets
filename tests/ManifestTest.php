@@ -85,6 +85,15 @@ class ManifestTest extends TestCase
         $output = $this->parser->javascriptFiles('manifest6');
     }
 
+    public function testJavascriptManifest8()
+    {
+        $output = $this->parser->javascriptFiles('manifest8');
+        $output = $this->stripBasePathFromArray($output);
+        
+        $this->assertEquals($output[0], '/app/assets/javascripts/app/bindings/data-changer.js');
+        $this->assertEquals($output, array_unique($output));
+    }
+
     public function testJavascriptAppApplication()
     {
         $output = $this->parser->javascriptFiles('app/application');
