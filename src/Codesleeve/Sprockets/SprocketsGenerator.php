@@ -1,10 +1,9 @@
 <?php namespace Codesleeve\Sprockets;
 
-use Assetic\Asset\AssetCache;
-use Assetic\Asset\FileAsset;
-use Assetic\Cache\FilesystemCache;
-use Codesleeve\Sprockets\Parsers\DirectivesParser;
 use ReflectionClass;
+use Assetic\Asset\FileAsset;
+use Codesleeve\Sprockets\Asset\AssetCache;
+use Codesleeve\Sprockets\Parsers\DirectivesParser;
 
 class SprocketsGenerator
 {
@@ -83,7 +82,7 @@ class SprocketsGenerator
      * @param  string $absolutePath
      * @return string
      */
-    protected function cached($absolutePath)
+    public function cached($absolutePath)
     {
         $file = $this->file($absolutePath);
 
