@@ -30,7 +30,7 @@ class AssetCache implements AssetInterface
 
     public function load(FilterInterface $additionalFilter = null)
     {
-        $cacheKey = self::getCacheKey($this->asset, $additionalFilter, 'load');
+        $cacheKey = $this->getCacheKey();
         if ($this->cache->has($cacheKey)) {
             $this->asset->setContent($this->cache->get($cacheKey));
 
@@ -43,7 +43,7 @@ class AssetCache implements AssetInterface
 
     public function dump(FilterInterface $additionalFilter = null)
     {
-        $cacheKey = self::getCacheKey($this->asset, $additionalFilter, 'dump');
+        $cacheKey = $this->getCacheKey();
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
         }
@@ -56,9 +56,14 @@ class AssetCache implements AssetInterface
 
     public function remove()
     {
-        $cacheKey = self::getCacheKey($this->asset, null, 'dump');
+        // allows us to remove keys even when we are on
+        // different environments (like if we want to remove in 'local')
+        $this->cache->cacheOverride = true;
+
+        $cacheKey = $this->getCacheKey();
+
         if ($this->cache->has($cacheKey)) {
-            return $this->cache->remove($cacheKey);        
+            return $this->cache->remove($cacheKey);
         }
 
         return false;
@@ -119,47 +124,13 @@ class AssetCache implements AssetInterface
         return $this->asset->getValues();
     }
 
-    /**
-     * Returns a cache key for the current asset.
-     *
-     * The key is composed of everything but an asset's content:
-     *
-     *  * source root
-     *  * source path
-     *  * target url
-     *  * last modified
-     *  * filters
-     *
-     * @param AssetInterface  $asset            The asset
-     * @param FilterInterface $additionalFilter Any additional filter being applied
-     * @param string          $salt             Salt for the key
-     *
-     * @return string A key for identifying the current asset
-     */
-    private static function getCacheKey(AssetInterface $asset, FilterInterface $additionalFilter = null, $salt = '')
+    public function getCacheKey($salt = '')
     {
-        if ($additionalFilter) {
-            $asset = clone $asset;
-            $asset->ensureFilter($additionalFilter);
-        }
+        $asset = $this->asset;
 
         $cacheKey  = $asset->getSourceRoot();
         $cacheKey .= $asset->getSourcePath();
-        $cacheKey .= $asset->getTargetPath();
         $cacheKey .= $asset->getLastModified();
-
-        foreach ($asset->getFilters() as $filter) {
-            if ($filter instanceof HashableInterface) {
-                $cacheKey .= $filter->hash();
-            } else {
-                $cacheKey .= serialize($filter);
-            }
-        }
-
-        if ($values = $asset->getValues()) {
-            asort($values);
-            $cacheKey .= serialize($values);
-        }
 
         return md5($cacheKey.$salt);
     }
