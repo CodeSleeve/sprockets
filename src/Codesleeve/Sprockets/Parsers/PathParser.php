@@ -61,7 +61,7 @@ class PathParser extends ExtensionsParser
      */
     public function absolutePathToWebPath($filename)
     {
-        $filename = $this->stripFromBeginning($this->base_path . '/', $filename);
+        $filename = $this->stripFromBeginning($this->forwardSlashes($this->base_path . '/'), $this->forwardSlashes($filename));
 
         foreach ($this->paths() as $path)
         {
@@ -91,5 +91,17 @@ class PathParser extends ExtensionsParser
         }
 
         return null;
+    }
+
+    /**
+     * Swap out any back slashes with forward slashes for
+     * windows compatability
+     * 
+     * @param  string $filename
+     * @return string          
+     */
+    private function forwardSlashes($filename)
+    {
+        return str_replace('\\', '/', $filename);
     }
 }

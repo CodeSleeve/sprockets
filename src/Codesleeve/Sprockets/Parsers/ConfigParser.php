@@ -97,7 +97,7 @@ class ConfigParser extends \ArrayObject
     }
 
     /**
-     * Strip off the prefix of this filename if it is there
+     * Strip off the postfix of this filename if it is there
      * 
      * @param  {[type]} $filename [description]
      * @return {[type]}           [description]
@@ -111,5 +111,4 @@ class ConfigParser extends \ArrayObject
 
         return $str;
     }
-
 }
