@@ -4,6 +4,14 @@ use  Codesleeve\Sprockets\Interfaces\DirectiveInterface;
 
 class BaseDirective implements DirectiveInterface
 {
+    /**
+     * Use the directory separator to help with
+     * operating system compatability
+     * 
+     * @var [type]
+     */
+    protected $ds = DIRECTORY_SEPARATOR;
+
 	/**
 	 * Create a new Base Directive
 	 * 
@@ -44,7 +52,7 @@ class BaseDirective implements DirectiveInterface
 		{
 		    while (false !== ($path = readdir($handle))) 
 		    {
-		    	$fullpath = $folder . '/' . $path;
+		    	$fullpath = $folder . $this->ds . $path;
 		        if ($recursive && is_dir($fullpath) && $path != '.' && $path != '..') {
 		        	$directories[] = $fullpath;
 		        } else if (is_file($fullpath) && $this->parser->hasValidExtension($fullpath, $mime)) {

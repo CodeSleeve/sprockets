@@ -3,6 +3,14 @@
 class PathParser extends ExtensionsParser
 {
     /**
+     * Use the directory separator to help with
+     * operating system compatability
+     * 
+     * @var [type]
+     */
+    protected $ds = DIRECTORY_SEPARATOR;
+
+    /**
      * We strip off any leading paths and then try to find this
      * file using our available paths and extensions.
      * 
@@ -19,7 +27,7 @@ class PathParser extends ExtensionsParser
         {
             foreach ($this->extensions() as $extension)
             {
-                $absolutePath = $this->fileExists($path . '/' . $filename . $extension);
+                $absolutePath = $this->fileExists($path . $this->ds . $filename . $extension);
 
                 if ($absolutePath && (!$original_extension || $this->extensionForFile($absolutePath) == $original_extension)) {
                     return $absolutePath;
@@ -42,7 +50,7 @@ class PathParser extends ExtensionsParser
     {
         foreach ($this->paths as $path)
         {
-            $absolutePath = $this->fileExists($path . '/' . $filename);
+            $absolutePath = $this->fileExists($path . $this->ds . $filename);
 
             if ($absolutePath) {
                 return $absolutePath;
@@ -61,11 +69,11 @@ class PathParser extends ExtensionsParser
      */
     public function absolutePathToWebPath($filename)
     {
-        $filename = $this->stripFromBeginning($this->base_path . '/', $filename);
+        $filename = $this->stripFromBeginning($this->base_path . $this->ds, $filename);
 
         foreach ($this->paths() as $path)
         {
-            $path = $this->stripFromBeginning($path . '/', $filename);
+            $path = $this->stripFromBeginning($path . $this->ds, $filename);
 
             if ($path != $filename) {
                 return $path;
@@ -84,7 +92,7 @@ class PathParser extends ExtensionsParser
      */
     private function fileExists($filename)
     {
-        $filename = $this->base_path . '/' . $filename;
+        $filename = $this->base_path . $this->ds . $filename;
         
         if (file_exists($filename) && is_file($filename)) {
             return $filename;
