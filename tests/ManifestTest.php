@@ -187,4 +187,15 @@ class ManifestTest extends TestCase
         ));
     }
 
+    public function testFileLoadingOrderForRequireTree()
+    {
+        $output1 = $this->parser->javascriptFiles('manifest9');
+        $output1 = $this->stripBasePathFromArray($output1);
+
+        $output2 = $this->parser->javascriptFiles('manifest10');
+        $output2 = $this->stripBasePathFromArray($output2);
+
+        $this->assertNotEquals($output1, $output2);
+        $this->assertEquals(count($output1), count($output2));
+    }
 }

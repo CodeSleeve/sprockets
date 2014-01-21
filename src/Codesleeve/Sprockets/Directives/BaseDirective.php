@@ -34,7 +34,7 @@ class BaseDirective implements DirectiveInterface
 	 * @param  string $fullpath
 	 * @return array          
 	 */
-	public function getFilesArrayFromFolder($folder, $recursive = false, $mime = null)
+	public function getFilesArrayFromFolder($folder, $recursive = false, $mime = null, $loadDirectoriesFirst = false)
 	{
 		$paths = array();
 		$files = array();
@@ -57,11 +57,18 @@ class BaseDirective implements DirectiveInterface
 		sort($files);
     	sort($directories);
 
-		$paths = array_merge($paths, $files);
+    	if (!$loadDirectoriesFirst) {
+			$paths = array_merge($paths, $files);
+    	}
+		
 		foreach ($directories as $directory)
 		{
-			$paths = array_merge($paths, $this->getFilesArrayFromFolder($directory, $recursive, $mime));
+			$paths = array_merge($paths, $this->getFilesArrayFromFolder($directory, $recursive, $mime, $loadDirectoriesFirst));
 		}
+
+    	if ($loadDirectoriesFirst) {
+			$paths = array_merge($paths, $files);
+    	}
 
 		return $paths;
 	}
