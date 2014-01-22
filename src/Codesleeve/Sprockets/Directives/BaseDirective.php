@@ -1,6 +1,7 @@
 <?php namespace Codesleeve\Sprockets\Directives;
 
-use  Codesleeve\Sprockets\Interfaces\DirectiveInterface;
+use Codesleeve\Sprockets\Interfaces\DirectiveInterface;
+use Codesleeve\Sprockets\Exceptions\UnknownSprocketsDirectiveException;
 
 class BaseDirective implements DirectiveInterface
 {
@@ -21,11 +22,11 @@ class BaseDirective implements DirectiveInterface
 	 * We don't recognize the directive name so we are falling back
 	 * 
 	 * @param  string $params
-	 * @return array
+	 * @throws UnknownSprocketsDirectiveException
 	 */
 	public function process($params)
 	{
-		return array();
+		throw new UnknownSprocketsDirectiveException;
 	}
 
 	/**

@@ -9,7 +9,8 @@ class BaseDirectiveTest extends TestCase
 
     /**
      * Just make sure it doesn't throw some error
-     * 
+     *
+     * @expectedException Codesleeve\Sprockets\Exceptions\UnknownSprocketsDirectiveException
      * @return void
      */
     public function testProcess()
