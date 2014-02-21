@@ -48,7 +48,6 @@ class SprocketsGeneratorTest extends TestCase
         $this->assertEquals('fooly cooly', $output);
     }
 
-
     /**
      * Mock server cache object for testing with
      * 
