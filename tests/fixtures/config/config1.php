@@ -10,20 +10,26 @@ return array(
 	'paths' => array(
 		'app/assets/javascripts',
 		'app/assets/stylesheets',
+		'app/assets/images',
 		'lib/assets/javascripts',
 		'lib/assets/stylesheets',
+		'lib/assets/images',
 		'provider/assets/javascripts',
-		'provider/assets/stylesheets'
+		'provider/assets/stylesheets',
+		'provider/assets/images'
 	),
 
 	'filters' => array(
 		'.min.js' => array(),
-		'.js' => array(),
 		'.min.css' => array(),
-		'.css' => array(),
+		'.js' => array(),
 		'.js.coffee' => array(),
+		'.coffee' => array(),
+		'.css' => array(),
 		'.css.less' => array(),
 		'.css.scss' => array(),
+		'.less' => array(),
+		'.scss' => array(),
 		'.html' => array()
 	),
 
@@ -36,11 +42,15 @@ return array(
 	),
 
 	'mimes' => array(
-	    'javascripts' => array('.js', '.js.coffee', '.min.js', '.html'),
-	    'stylesheets' => array('.css', '.css.less', '.css.scss', '.min.css'),
+	    'javascripts' => array('.js', '.js.coffee', '.coffee', '.html', '.min.js'),
+	    'stylesheets' => array('.css', '.css.less', '.css.scss', '.less', '.scss', '.min.css'),
 	),
 
-	'cache' => null,
+	'cache' => 	array('production'),
+
+	'cache_server' => new Codesleeve\Sprockets\Filters\NotCached,
+
+	'cache_client' => new Codesleeve\Sprockets\Filters\NotCached,
 	
 	'concat' => array('production'),
 

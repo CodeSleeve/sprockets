@@ -1,12 +1,32 @@
 <?php namespace Codesleeve\Sprockets\Filters;
 
-use Assetic\Cache\CacheInterface;
+use Codesleeve\Sprockets\Interfaces\ClientCacheInterface;
 
-class NotCached implements CacheInterface
+class NotCached implements ClientCacheInterface
 {
+    public function getServerCache()
+    {
+
+    }
+
+    public function setServerCache(\Assetic\Cache\CacheInterface $driver)
+    {
+
+    }
+
+    public function getAssetCache()
+    {
+
+    }
+
+    public function setAssetCache(\Assetic\Asset\AssetInterface $cache)
+    {
+
+    }
+
     public function has($key)
     {
-        return false;
+        return false;   // always fetch the file, it isn't cached
     }
 
     public function get($key)
