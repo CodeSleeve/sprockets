@@ -8,11 +8,10 @@ class RequireFile extends BaseDirective
 	{
 		$fullpath = $this->parser->absolutePath($filename);
 
-        if (!$fullpath) {
-            throw new InvalidPathException("File not found in available paths: $filename");
-        }
+		if (!$fullpath) {
+			throw new InvalidPathException("File not found in available paths: $filename");
+		}
 
 		return array($fullpath);
 	}
-
 }
