@@ -19,4 +19,20 @@ class DirectivesParserTest extends TestCase
 
     	$this->assertEquals($output, array('/provider/assets/javascripts/jquery.js'));
     }
+
+    public function testExcludesStubbedFiles()
+    {
+        $output = $this->parser->getFilesArrayFromDirectives($this->basePath . '/app/assets/stylesheets/manifest8.css');
+        $output = $this->stripBasePathFromArray($output);
+        $expected = array(
+            "/app/assets/stylesheets/app/application.css",
+            "/app/assets/stylesheets/app/dashboard.css.less",
+            "/app/assets/stylesheets/app/fonts.css",
+            "/app/assets/stylesheets/app/home.index.css",
+            "/app/assets/stylesheets/app/login.css.less",
+            "/app/assets/stylesheets/app/main.css.less",
+        );
+
+        $this->assertEquals($expected, $output);
+    }
 }

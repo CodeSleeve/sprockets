@@ -35,10 +35,13 @@ return array(
 
 	'directives' => array(
 		'require ' => new Codesleeve\Sprockets\Directives\RequireFile,
-		'require_directory' => new Codesleeve\Sprockets\Directives\RequireDirectory,
-		'require_tree_df' => new Codesleeve\Sprockets\Directives\RequireTreeDf,
-		'require_tree' => new Codesleeve\Sprockets\Directives\RequireTree,
+		'require_directory ' => new Codesleeve\Sprockets\Directives\RequireDirectory,
+		'require_tree_df ' => new Codesleeve\Sprockets\Directives\RequireTreeDf,
+		'require_tree ' => new Codesleeve\Sprockets\Directives\RequireTree,
 		'require_self' => new Codesleeve\Sprockets\Directives\RequireSelf,
+		'stub ' => new Codesleeve\Sprockets\Directives\Stub,
+		'depend_on ' => new Codesleeve\Sprockets\Directives\DependOn,
+		'include ' => new Codesleeve\Sprockets\Directives\IncludeFile,
 	),
 
 	'mimes' => array(

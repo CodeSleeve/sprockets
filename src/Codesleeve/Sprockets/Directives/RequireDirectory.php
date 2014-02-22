@@ -8,7 +8,7 @@ class RequireDirectory extends BaseDirective
 	{
 		$realpath = realpath($this->manifestDir . '/' . $directory);
 
-		if ($realpath === false) {
+		if (!$realpath) {
 			throw new InvalidPathException('Cannot find directory path: ' . $directory);
 		}
 
