@@ -54,30 +54,6 @@ class SprocketsGenerator implements Interfaces\GeneratorInterface
     }
 
     /**
-     * Return the filters for this specific file
-     * 
-     * @param  $absolutePath
-     * @return array             
-     */
-    protected function filters($absolutePath, $concat = false)
-    {
-        $extension = $this->parser()->extensionForFile($absolutePath);
-
-        $filters = isset($this->parser()->filters[$extension]) ? $this->parser()->filters[$extension] : array();
-
-        if (!$concat)
-        {
-            return $filters;
-        }
-
-        // concatenate so we need to use the sprockets filter here
-        $class = new ReflectionClass($this->parser()->sprockets_filter);
-        $sprockets = $class->newInstanceArgs(array($this->parser(), $this));
-
-        return array($sprockets);
-    }
-
-    /**
      * Returns the file wrapped around the server cache
      * so that we get a performance boost.
      * 
@@ -107,6 +83,30 @@ class SprocketsGenerator implements Interfaces\GeneratorInterface
         }
 
         return $this->parser()->clientCache($file);
+    }
+
+    /**
+     * Return the filters for this specific file
+     * 
+     * @param  $absolutePath
+     * @return array             
+     */
+    protected function filters($absolutePath, $concat = false)
+    {
+        $extension = $this->parser()->extensionForFile($absolutePath);
+
+        $filters = isset($this->parser()->filters[$extension]) ? $this->parser()->filters[$extension] : array();
+
+        if (!$concat)
+        {
+            return $filters;
+        }
+
+        // concatenate so we need to use the sprockets filter here
+        $class = new ReflectionClass($this->parser()->sprockets_filter);
+        $sprockets = $class->newInstanceArgs(array($this->parser(), $this));
+
+        return array($sprockets);
     }
 
     /**

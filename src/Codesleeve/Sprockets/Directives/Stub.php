@@ -12,6 +12,8 @@ class Stub extends BaseDirective
 	 */
 	public function process($path)
 	{
+		$this->parser->mime = $this->getMimeType();
+
 		$realpath = realpath($this->manifestDir . '/' . $path);
 
 		if (is_dir($realpath))
@@ -41,7 +43,7 @@ class Stub extends BaseDirective
 	 */
 	protected function stubFile($path)
 	{
-		$realpath = $this->parser->absolutePath($path);
+		$realpath = $this->absolutePath($path);
 
 		if (!$realpath)
 		{

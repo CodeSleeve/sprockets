@@ -13,7 +13,7 @@ class DirectivesParser extends PathParser
         $included = array();
         $excluded = array();
 
-        $lines = ($filename) ? file($filename) : array();
+        $lines = file_exists($filename) ? file($filename) : explode("\n", $filename);
 
         foreach ($lines as $line)
         {
@@ -24,6 +24,59 @@ class DirectivesParser extends PathParser
         }
 
         return array_unique(array_diff($included, $excluded));
+    }
+
+    /**
+     * Returns an array of all files that this file depends upon
+     * 
+     * @param  string $filename
+     * @return array
+     */
+    public function getDependenciesArrayFromDirectives($filename, $recursive = true)
+    {
+        $dependencies = array();
+
+        $lines = file_exists($filename) ? file($filename) : explode("\n", $filename);
+
+        foreach ($lines as $line)
+        {
+            list($include, $exclude, $depend) = $this->processDirectiveFromFileLine($line, $filename);
+            $dependencies = array_merge($dependencies, $depend);
+        }
+
+        if ($recursive)
+        {
+            $dependencies = $this->getDependenciesRecurisvely($dependencies);
+        }
+
+        return array_unique($dependencies);
+    }
+
+    /**
+     * An iterative process to get all dependencies recursively
+     * so we make sure to bust the cache properly. This avoids
+     * circular loops via the $recursive = false flag
+     * 
+     * @param  array $unprocessed
+     * @return array
+     */
+    private function getDependenciesRecurisvely($unprocessed)
+    {
+        $processed = array();
+
+        while (count($unprocessed) > 0)
+        {
+            $file = array_shift($unprocessed);
+
+            if (!in_array($file, $processed))
+            {
+                $processed[] = $file;
+                $deps = $this->getDependenciesArrayFromDirectives($file, $recursive = false);
+                $unprocessed = array_merge($deps, $unprocessed);
+            }
+        }
+
+        return array_unique($processed);
     }
 
     /**

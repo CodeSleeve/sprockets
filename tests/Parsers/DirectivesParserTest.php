@@ -35,4 +35,17 @@ class DirectivesParserTest extends TestCase
 
         $this->assertEquals($expected, $output);
     }
+
+    public function testGetDependenciesArrayFromDirectives()
+    {
+        $output = $this->parser->getDependenciesArrayFromDirectives($this->basePath . '/app/assets/stylesheets/manifest9.css');
+        $output = $this->stripBasePathFromArray($output);
+
+        $expected = array(
+            "/app/assets/stylesheets/app/subdir/add-blog-modal.css.less",
+            "/app/assets/stylesheets/app/subdir/foo/bar.css.less",
+        );
+
+        $this->assertEquals($expected, $output);
+    }
 }

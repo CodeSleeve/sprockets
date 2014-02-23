@@ -1,4 +1,4 @@
-<?php namespace Codesleeve\Sprockets\Filters;
+<?php namespace Codesleeve\Sprockets\Cache;
 
 use Codesleeve\Sprockets\Interfaces\ClientCacheInterface;
 

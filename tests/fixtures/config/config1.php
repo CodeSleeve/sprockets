@@ -51,9 +51,9 @@ return array(
 
 	'cache' => 	array('production'),
 
-	'cache_server' => new Codesleeve\Sprockets\Filters\NotCached,
+	'cache_server' => new Codesleeve\Sprockets\Cache\NotCached,
 
-	'cache_client' => new Codesleeve\Sprockets\Filters\NotCached,
+	'cache_client' => new Codesleeve\Sprockets\Cache\NotCached,
 	
 	'concat' => array('production'),
 

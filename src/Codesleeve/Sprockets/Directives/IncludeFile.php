@@ -4,7 +4,7 @@ class IncludeFile extends BaseDirective
 {
 	public function process($filename)
 	{
-		$fullpath = $this->parser->absolutePath($filename);
+		$fullpath = $this->absolutePath($filename);
 
 		if (!$fullpath) {
 			return array();

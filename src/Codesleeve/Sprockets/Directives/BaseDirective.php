@@ -16,6 +16,47 @@ class BaseDirective implements DirectiveInterface
 		$this->parser = $parser;
 		$this->manifestFile = $manifestFile;
 		$this->manifestDir = dirname($manifestFile);
+		$this->manifestRel = null;
+	}
+
+	/**
+	 * Returns the mimetype for given manifest file
+	 * or you can pass in a file path here
+	 * 
+	 * @param  string $file
+	 * @return string
+	 */
+	public function getMimeType($file = null)
+	{
+		$file = $file ? $file : $this->manifestFile;
+
+		return $this->parser->mimeType($file);
+	}
+
+	/**
+	 * Returns the absolute path of this filename. First we
+	 * check to see if the path is found relative to the manifest
+	 * so that let's us do relative manifest paths but if that
+	 * fails then we fall back to checking all paths available.
+	 *
+	 * @param  string $filename
+	 * @return 
+	 */
+	public function absolutePath($filename)
+	{
+		$realpath = null;
+
+		if (strpos($filename, '/') !== 0)
+		{
+			$realpath = $this->parser->absolutePath($this->relativePath($filename));
+			$realpath = $realpath && realpath($realpath) ? realpath($realpath) : $realpath;
+		}
+		else
+		{
+			$filename = substr($filename, 1);
+		}
+
+		return $realpath ? $realpath : $this->parser->absolutePath($filename);
 	}
 
 	/**
@@ -72,5 +113,53 @@ class BaseDirective implements DirectiveInterface
     	}
 
 		return $paths;
+	}
+
+	/**
+	 * Strips off the path makes this a relative path
+	 * 
+	 * @return string
+	 */
+	protected function relativePath($filename)
+	{
+		$manifest = $this->getManifestRelativePath();
+
+		return $manifest ? $manifest . '/' . $filename : $filename;
+	}
+
+	/**
+	 * Gets us the path relative to the manifest against the 
+	 * array of all paths and base paths in the parser. This will
+	 * likely be a manifest directory inside of 
+	 * 
+	 * 	<project>/app/assets/.../
+	 *
+	 * since most people store their manifest files in this location.
+	 * 
+	 * @return string
+	 */
+	protected function getManifestRelativePath()
+	{
+		if ($this->manifestRel)
+		{
+			return $this->manifestRel;
+		}
+
+		$base = $this->parser->get('base_path') . '/';
+		$paths = $this->parser->get('paths');
+		$manifestRel = str_replace($base, '', $this->manifestDir);
+
+		foreach ($paths as $path)
+		{
+			$newRel = str_replace($path . '/', '', $manifestRel);
+
+			if ($newRel != $manifestRel)
+			{
+				$this->manifestRel = $newRel;
+				return $this->manifestRel;
+			}
+		}
+
+		return $this->manifestRel;
 	}
 }

@@ -1,7 +1,8 @@
 <?php namespace Codesleeve\Sprockets\Parsers;
 
 use Assetic\Asset\FileAsset;
-use Codesleeve\Sprockets\Asset\AssetCache;
+use Codesleeve\Sprockets\Cache\AssetCache;
+use Codesleeve\Sprockets\Cache\DependencyValidationCache;
 
 class ConfigParser extends \ArrayObject
 {
@@ -96,14 +97,19 @@ class ConfigParser extends \ArrayObject
 
     /**
      * Returns the server side cache for $files
+     *
+     * If we are not caching then we need to check
+     * all files for dependencies.
      * 
      * @return AssetCache
      */
     public function serverCache(FileAsset $files)
     {
-        $server = $this->get('cache_server');
+        $driver = new DependencyValidationCache($this->get('cache_server'), $this, $this->cache());
 
-        $cache = new AssetCache($files, $server);
+        $cache = new AssetCache($files, $driver);
+
+        $driver->setAssetCache($cache);
 
         return $cache;
     }
