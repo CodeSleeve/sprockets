@@ -66,6 +66,6 @@ class SprocketsGeneratorTest extends TestCase
             ->method('get')
             ->will($this->returnValue('fooly cooly'));
 
-        return $cache;        
+        return $cache;
     }
 }

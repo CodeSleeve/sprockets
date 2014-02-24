@@ -1,6 +1,6 @@
 <?php namespace Codesleeve\Sprockets;
 
-use ReflectionClass;
+use ReflectionClass, RecursiveIteratorIterator, RecursiveDirectoryIterator;
 use Assetic\Asset\FileAsset;
 use Codesleeve\Sprockets\Parsers\DirectivesParser;
 
