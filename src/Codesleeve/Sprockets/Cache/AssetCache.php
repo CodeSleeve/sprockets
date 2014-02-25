@@ -211,11 +211,20 @@ class AssetCache implements AssetCacheInterface
     {
         $asset = $this->asset;
 
-        $cacheKey  = $asset->getSourceRoot();
-        $cacheKey .= $asset->getSourcePath();
-        $cacheKey .= $asset->getLastModified();
+        return $this->generateCacheKey($asset->getSourceRoot() . $asset->getSourcePath(), $asset->getLastModified(), $salt);
+    }
 
-        return md5($cacheKey.$salt);
+    /**
+     * [generateCacheKey description]
+     *
+     * @param  string $path
+     * @param  string $lastModified
+     * @param  string $salt
+     * @return string
+     */
+    public function generateCacheKey($path, $lastModified, $salt = '')
+    {
+        return md5($path . $lastModified . $salt);
     }
 
     /**
