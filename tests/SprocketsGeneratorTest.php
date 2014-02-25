@@ -48,6 +48,15 @@ class SprocketsGeneratorTest extends TestCase
         $this->assertEquals('fooly cooly', $output);
     }
 
+    public function testConcatenationOnJavascript()
+    {
+        $this->generator->config['environment'] = "production";
+
+        $output = $this->generator->javascript($this->basePath . '/app/assets/javascripts/manifest11.js');
+
+        $this->assertEquals(substr_count($output, ';'), 2);
+    }
+
     /**
      * Mock server cache object for testing with
      * 

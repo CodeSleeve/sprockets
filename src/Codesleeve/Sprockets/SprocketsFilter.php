@@ -41,6 +41,7 @@ class SprocketsFilter implements FilterInterface
         }
 
         $global_filters = $this->parser->get("sprockets_filters.{$this->parser->mime}", array());
+        $global_filters = array_merge($global_filters, array(new Filters\JavascriptConcatenationFilter));
 
         $collection = new AssetCollection($files, $global_filters);
 
