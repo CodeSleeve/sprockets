@@ -8,8 +8,8 @@ class DependencyValidationCache implements CacheInterface
 {
     /**
      * Create new dependency validation cache. This class is a wrapper
-     * around $this->cache and just checks 
-     * 
+     * around $this->cache and just checks
+     *
      * @param CacheInterface $cache
      * @param DirectivesParser $parser
      * @param boolean $passthru
@@ -62,7 +62,7 @@ class DependencyValidationCache implements CacheInterface
         foreach ($dependencies as $dependency)
         {
             $asset = new AssetCache(new FileAsset($dependency), $this->cache);
-            
+
             if (!$asset->isCached())
             {
                 return false;

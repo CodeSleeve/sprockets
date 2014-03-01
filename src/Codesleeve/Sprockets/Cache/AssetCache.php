@@ -88,7 +88,7 @@ class AssetCache implements AssetCacheInterface
 
     /**
      * Allows us to remove a cached file
-     * 
+     *
      * @return [type] [description]
      */
     public function remove()
