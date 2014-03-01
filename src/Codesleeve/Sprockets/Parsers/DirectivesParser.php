@@ -1,6 +1,8 @@
 <?php namespace Codesleeve\Sprockets\Parsers;
 
-class DirectivesParser extends PathParser
+use Codesleeve\Sprockets\Interfaces\DirectivesParserInterface;
+
+class DirectivesParser extends PathParser implements DirectivesParserInterface
 {
     /**
      * Returns an array of all the files inside of this manifest file

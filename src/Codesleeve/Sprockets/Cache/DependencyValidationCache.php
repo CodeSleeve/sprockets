@@ -61,9 +61,7 @@ class DependencyValidationCache implements CacheInterface
 
         foreach ($dependencies as $dependency)
         {
-            $asset = new AssetCache(new FileAsset($dependency), $this->cache);
-
-            if (!$asset->isCached())
+            if (!$this->asset->isFileCached($dependency))
             {
                 return false;
             }
