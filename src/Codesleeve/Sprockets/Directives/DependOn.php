@@ -7,7 +7,7 @@ class DependOn extends BaseDirective
 {
 	/**
 	 * Get a list of dependencies for given path
-	 * 
+	 *
 	 * @param  string $path
 	 * @return array
 	 */
@@ -27,9 +27,9 @@ class DependOn extends BaseDirective
 
 	/**
 	 * Get list of files from a directory that are dependencies
-	 * 
+	 *
 	 * @param  file $realpath [description]
-	 * @return 
+	 * @return
 	 */
 	protected function getDirectory($realpath)
 	{
@@ -38,7 +38,7 @@ class DependOn extends BaseDirective
 
 	/**
 	 * Get the absolute path to this file that is a dependency
-	 * 
+	 *
 	 * @param  string $path
 	 * @return array
 	 */

@@ -1,7 +1,7 @@
 <?php namespace Codesleeve\Sprockets;
 
 class SprocketsGeneratorTest extends TestCase
-{ 
+{
     public function setUp()
     {
         $this->basePath = realpath(__DIR__ . '/fixtures');
@@ -59,7 +59,7 @@ class SprocketsGeneratorTest extends TestCase
 
     /**
      * Mock server cache object for testing with
-     * 
+     *
      * @param  boolean $has
      * @return Assetic\Cache\CacheInterface
      */

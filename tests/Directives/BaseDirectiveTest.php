@@ -1,7 +1,7 @@
 <?php namespace Codesleeve\Sprockets;
 
 class BaseDirectiveTest extends TestCase
-{ 
+{
     public function setUp()
     {
         $this->directive = new Directives\BaseDirective;

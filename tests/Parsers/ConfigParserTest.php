@@ -1,7 +1,7 @@
 <?php namespace Codesleeve\Sprockets;
 
 class ConfigParserTest extends TestCase
-{ 
+{
     public function setUp()
     {
         $this->basePath = realpath(__DIR__ . '/../fixtures');

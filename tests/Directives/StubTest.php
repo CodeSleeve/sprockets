@@ -1,7 +1,7 @@
 <?php namespace Codesleeve\Sprockets;
 
 class StubTest extends TestCase
-{ 
+{
     public function setUp()
     {
     	$this->basePath = realpath(__DIR__ . '/../fixtures');
@@ -17,7 +17,7 @@ class StubTest extends TestCase
 
     /**
      * Stub out a directory
-     * 
+     *
      * @return void
      */
     public function testProcessForDirectory()
@@ -37,7 +37,7 @@ class StubTest extends TestCase
 
     /**
      * Stub out a single file
-     * 
+     *
      * @return void
      */
     public function testProcessForFile()

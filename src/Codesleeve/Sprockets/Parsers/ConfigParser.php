@@ -10,7 +10,7 @@ class ConfigParser extends \ArrayObject
 
     /**
      * Create a new parser config object
-     * 
+     *
      * @param array $config
      */
     public function __construct(array $config)
@@ -23,14 +23,14 @@ class ConfigParser extends \ArrayObject
      * Allows the object to be traversed via object notation,
      * so if we had like $config['paths']['first'] then we can
      * do like $config['paths']['first'] or $config->paths->first
-     * 
+     *
      * @param  string $value
      * @return self or typeof ($value)
      */
     public function __get($value)
     {
         $value = $this->get($value);
-        
+
         if (is_array($value)) {
             return new self($value);
         }
@@ -40,12 +40,12 @@ class ConfigParser extends \ArrayObject
 
     /**
      * Get an index of the array. Handles dot notation too.
-     * 
+     *
      * @param  string $path
      * @return array
      */
     public function get($path = '', $default = null)
-    {  
+    {
         if (!$path) {
             return $this->config;
         }
@@ -67,7 +67,7 @@ class ConfigParser extends \ArrayObject
 
     /**
      * Returns all the paths for this configuration
-     * 
+     *
      * @return array
      */
     public function paths()
@@ -77,7 +77,7 @@ class ConfigParser extends \ArrayObject
 
     /**
      * Returns if we should concat or not
-     * 
+     *
      * @return bool
      */
     public function concat()
@@ -87,7 +87,7 @@ class ConfigParser extends \ArrayObject
 
     /**
      * Returns if we should cache or not
-     * 
+     *
      * @return bool
      */
     public function cache()
@@ -100,7 +100,7 @@ class ConfigParser extends \ArrayObject
      *
      * If we are not caching then we need to check
      * all files for dependencies.
-     * 
+     *
      * @return AssetCache
      */
     public function serverCache(FileAsset $files)
@@ -116,7 +116,7 @@ class ConfigParser extends \ArrayObject
 
     /**
      * Returns the client cache for $files
-     * 
+     *
      * @param  FileAsset $files
      * @return AssetCache
      */
@@ -137,7 +137,7 @@ class ConfigParser extends \ArrayObject
 
     /**
      * Strip off the prefix of this filename if it is there
-     * 
+     *
      * @param  {[type]} $filename [description]
      * @return {[type]}           [description]
      */
@@ -152,7 +152,7 @@ class ConfigParser extends \ArrayObject
 
     /**
      * Strip off the postfix of this filename if it is there
-     * 
+     *
      * @param  {[type]} $filename [description]
      * @return {[type]}           [description]
      */

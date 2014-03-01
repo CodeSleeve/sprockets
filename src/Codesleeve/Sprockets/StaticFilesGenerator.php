@@ -82,11 +82,11 @@ class StaticFilesGenerator implements Interfaces\StaticFilesGeneratorInterface
     }
 
     /**
-     * Return the relative path for this file. This also 
+     * Return the relative path for this file. This also
      * converts the extension to the correct extension given
      * the current mime types in the configuration.
      *
-     * @return string 
+     * @return string
      */
     protected function getRelativePath($fullpath, $file)
     {

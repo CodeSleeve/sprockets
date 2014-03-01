@@ -4,7 +4,7 @@ use Assetic\Asset\AssetInterface;
 use Assetic\Asset\AssetCollection;
 use Assetic\Filter\FilterInterface;
 
-class SprocketsFilter implements FilterInterface 
+class SprocketsFilter implements FilterInterface
 {
     public function __construct($parser, $generator)
     {

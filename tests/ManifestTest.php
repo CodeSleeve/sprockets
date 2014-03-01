@@ -1,7 +1,7 @@
 <?php namespace Codesleeve\Sprockets;
 
 class ManifestTest extends TestCase
-{ 
+{
     public function setUp()
     {
         $this->basePath = realpath(__DIR__ . '/fixtures');
@@ -91,7 +91,7 @@ class ManifestTest extends TestCase
     {
         $output = $this->parser->javascriptFiles('manifest8');
         $output = $this->stripBasePathFromArray($output);
-        
+
         $this->assertEquals($output[0], '/app/assets/javascripts/app/bindings/data-changer.js');
         $this->assertEquals($output, array_unique($output));
     }

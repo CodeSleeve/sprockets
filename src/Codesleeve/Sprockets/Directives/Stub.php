@@ -6,7 +6,7 @@ class Stub extends BaseDirective
 {
 	/**
 	 * Return the excluded files for this given path
-	 * 
+	 *
 	 * @param  string $path
 	 * @return array
 	 */
@@ -26,7 +26,7 @@ class Stub extends BaseDirective
 
 	/**
 	 * Returns an exclusion for all files in this directory
-	 * 
+	 *
 	 * @param  directory $path
 	 * @return array
 	 */
@@ -37,7 +37,7 @@ class Stub extends BaseDirective
 
 	/**
 	 * Returns an exclusion for this file
-	 * 
+	 *
 	 * @param  file $path
 	 * @return array
 	 */

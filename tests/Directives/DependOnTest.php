@@ -1,7 +1,7 @@
 <?php namespace Codesleeve\Sprockets;
 
 class DependOnTest extends TestCase
-{ 
+{
     public function setUp()
     {
     	$this->basePath = realpath(__DIR__ . '/../fixtures');
@@ -17,7 +17,7 @@ class DependOnTest extends TestCase
 
     /**
      * See how it responds to a file
-     * 
+     *
      * @return void
      */
     public function testProcessForFile()
@@ -35,7 +35,7 @@ class DependOnTest extends TestCase
 
     /**
      * See how it responds to a directory
-     * 
+     *
      * @return void
      */
     public function testProcessForDirectory()

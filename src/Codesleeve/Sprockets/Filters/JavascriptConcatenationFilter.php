@@ -9,9 +9,9 @@ class JavascriptConcatenationFilter implements FilterInterface
     {
 
     }
- 
+
  	/**
- 	 * Adds a semi-colon to the end of the content to help prevent 
+ 	 * Adds a semi-colon to the end of the content to help prevent
  	 * issues where you have like self-invoking functions in two
  	 * different files...
  	 *
@@ -20,9 +20,9 @@ class JavascriptConcatenationFilter implements FilterInterface
  	 *
  	 * When seperated these two files work fine. This is just preventive
  	 * medicine for the ASI (automatic semi-colon insertion).
- 	 * 
+ 	 *
  	 * @param  AssetInterface $asset
- 	 * @return 
+ 	 * @return
  	 */
     public function filterDump(AssetInterface $asset)
     {

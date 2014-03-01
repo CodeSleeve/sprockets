@@ -3,7 +3,7 @@
 use RecursiveIteratorIterator, RecursiveDirectoryIterator;
 
 class StaticFilesGeneratorTest extends TestCase
-{ 
+{
     public function setUp()
     {
         $this->basePath = realpath(__DIR__ . '/fixtures');
@@ -43,7 +43,7 @@ class StaticFilesGeneratorTest extends TestCase
 
 		$it = new RecursiveDirectoryIterator($directory);
 		$files = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST);
-		
+
 		foreach ($files as $file)
 		{
 			if ($file->getFilename() === '.' || $file->getFilename() === '..') {

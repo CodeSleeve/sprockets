@@ -7,9 +7,9 @@ use Codesleeve\Sprockets\Parsers\DirectivesParser;
 class SprocketsGenerator implements Interfaces\GeneratorInterface
 {
     /**
-     * Create a new sprockets generator. This will apply the 
-     * sprockets assetic filter to generate parse out 
-     * 
+     * Create a new sprockets generator. This will apply the
+     * sprockets assetic filter to generate parse out
+     *
      * @param array $config [description]
      */
     public function __construct(array $config)
@@ -19,7 +19,7 @@ class SprocketsGenerator implements Interfaces\GeneratorInterface
 
     /**
      * Return the javascript text for this absolutePath
-     * 
+     *
      * @param  string $absolutePath
      * @return string
      */
@@ -29,8 +29,8 @@ class SprocketsGenerator implements Interfaces\GeneratorInterface
     }
 
     /**
-     * Return the stylesheet text for this 
-     * 
+     * Return the stylesheet text for this
+     *
      * @param  $absolutePath
      * @return string
      */
@@ -41,7 +41,7 @@ class SprocketsGenerator implements Interfaces\GeneratorInterface
 
     /**
      * Returns this file for $absolutePath
-     * 
+     *
      * @param  filepath $absolutePath
      * @param  bool     $contact        allows us to turn concat on or off manually
      * @return FileAsset
@@ -56,7 +56,7 @@ class SprocketsGenerator implements Interfaces\GeneratorInterface
     /**
      * Returns the file wrapped around the server cache
      * so that we get a performance boost.
-     * 
+     *
      * @param  filepath $absolutePath
      * @return AssetCache
      */
@@ -69,7 +69,7 @@ class SprocketsGenerator implements Interfaces\GeneratorInterface
 
     /**
      * Returns the cached version of this absolutePath
-     * 
+     *
      * @param  string $absolutePath
      * @return string
      */
@@ -87,9 +87,9 @@ class SprocketsGenerator implements Interfaces\GeneratorInterface
 
     /**
      * Return the filters for this specific file
-     * 
+     *
      * @param  $absolutePath
-     * @return array             
+     * @return array
      */
     protected function filters($absolutePath, $concat = false)
     {
@@ -111,7 +111,7 @@ class SprocketsGenerator implements Interfaces\GeneratorInterface
 
     /**
      * Gets us a new parser
-     * 
+     *
      * @return DirectivesParser
      */
     protected function parser()

@@ -7,9 +7,9 @@ class BaseDirective implements DirectiveInterface
 {
 	/**
 	 * Create a new Base Directive
-	 * 
-	 * @param Parser $parser       
-	 * @param string $manifestFile 
+	 *
+	 * @param Parser $parser
+	 * @param string $manifestFile
 	 */
 	public function initialize($parser, $manifestFile)
 	{
@@ -22,7 +22,7 @@ class BaseDirective implements DirectiveInterface
 	/**
 	 * Returns the mimetype for given manifest file
 	 * or you can pass in a file path here
-	 * 
+	 *
 	 * @param  string $file
 	 * @return string
 	 */
@@ -40,7 +40,7 @@ class BaseDirective implements DirectiveInterface
 	 * fails then we fall back to checking all paths available.
 	 *
 	 * @param  string $filename
-	 * @return 
+	 * @return
 	 */
 	public function absolutePath($filename)
 	{
@@ -61,7 +61,7 @@ class BaseDirective implements DirectiveInterface
 
 	/**
 	 * We don't recognize the directive name so we are falling back
-	 * 
+	 *
 	 * @param  string $params
 	 * @throws UnknownSprocketsDirectiveException
 	 */
@@ -72,9 +72,9 @@ class BaseDirective implements DirectiveInterface
 
 	/**
 	 * Get the files within a folder
-	 * 
+	 *
 	 * @param  string $fullpath
-	 * @return array          
+	 * @return array
 	 */
 	public function getFilesArrayFromFolder($folder, $recursive = false, $mime = null, $loadDirectoriesFirst = false)
 	{
@@ -84,7 +84,7 @@ class BaseDirective implements DirectiveInterface
 
 		if ($handle = opendir($folder))
 		{
-		    while (false !== ($path = readdir($handle))) 
+		    while (false !== ($path = readdir($handle)))
 		    {
 		    	$fullpath = $folder . '/' . $path;
 		        if ($recursive && is_dir($fullpath) && $path != '.' && $path != '..') {
@@ -102,7 +102,7 @@ class BaseDirective implements DirectiveInterface
     	if (!$loadDirectoriesFirst) {
 			$paths = array_merge($paths, $files);
     	}
-		
+
 		foreach ($directories as $directory)
 		{
 			$paths = array_merge($paths, $this->getFilesArrayFromFolder($directory, $recursive, $mime, $loadDirectoriesFirst));
@@ -117,7 +117,7 @@ class BaseDirective implements DirectiveInterface
 
 	/**
 	 * Strips off the path makes this a relative path
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function relativePath($filename)
@@ -128,14 +128,14 @@ class BaseDirective implements DirectiveInterface
 	}
 
 	/**
-	 * Gets us the path relative to the manifest against the 
+	 * Gets us the path relative to the manifest against the
 	 * array of all paths and base paths in the parser. This will
-	 * likely be a manifest directory inside of 
-	 * 
+	 * likely be a manifest directory inside of
+	 *
 	 * 	<project>/app/assets/.../
 	 *
 	 * since most people store their manifest files in this location.
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getManifestRelativePath()

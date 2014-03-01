@@ -5,7 +5,7 @@ class PathParser extends ExtensionsParser
     /**
      * We strip off any leading paths and then try to find this
      * file using our available paths and extensions.
-     * 
+     *
      * @param  {[type]} $filename [description]
      * @return {[type]}           [description]
      */
@@ -32,11 +32,11 @@ class PathParser extends ExtensionsParser
 
     /**
      * This will search for a file with this $filename in our
-     * paths for us. This is useful when we are dealing with 
+     * paths for us. This is useful when we are dealing with
      * other mime types like images or font files.
-     * 
+     *
      * @param  string $filename
-     * @return string          
+     * @return string
      */
     public function fileWithAbsolutePath($filename)
     {
@@ -55,7 +55,7 @@ class PathParser extends ExtensionsParser
     /**
      * Gets us a web path for this file (how would you access it
      * via the web?)
-     * 
+     *
      * @param  string $filename
      * @return string
      */
@@ -78,14 +78,14 @@ class PathParser extends ExtensionsParser
     /**
      * If the file exists then we will return the filename
      * else we return null
-     * 
+     *
      * @param  string $filename
      * @return null|$filename
      */
     private function fileExists($filename)
     {
         $filename = $this->base_path . '/' . $filename;
-        
+
         if (file_exists($filename) && is_file($filename)) {
             return $filename;
         }
@@ -96,9 +96,9 @@ class PathParser extends ExtensionsParser
     /**
      * Swap out any back slashes with forward slashes for
      * windows compatability
-     * 
+     *
      * @param  string $filename
-     * @return string          
+     * @return string
      */
     private function forwardSlashes($filename)
     {
