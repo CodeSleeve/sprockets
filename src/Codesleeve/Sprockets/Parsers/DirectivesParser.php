@@ -90,7 +90,7 @@ class DirectivesParser extends PathParser implements DirectivesParserInterface
      * @param  file $filename
      * @return array($include, $exclude, $depend)
      */
-    private function processDirectiveFromFileLine($line, $filename, $tokens = array('//=', '*=', '#='))
+    private function processDirectiveFromFileLine($line, $filename, $tokens = array('//= ', '*= ', '#= '))
     {
         $line = ltrim($line);
 
