@@ -42,6 +42,8 @@ return array(
 		'stub ' => new Codesleeve\Sprockets\Directives\Stub,
 		'depend_on ' => new Codesleeve\Sprockets\Directives\DependOn,
 		'include ' => new Codesleeve\Sprockets\Directives\IncludeFile,
+		'include_directory ' => new Codesleeve\Sprockets\Directives\IncludeDirectory,
+		'include_tree' => new Codesleeve\Sprockets\Directives\IncludeTree,
 	),
 
 	'mimes' => array(
@@ -54,7 +56,7 @@ return array(
 	'cache_server' => new Codesleeve\Sprockets\Cache\NotCached,
 
 	'cache_client' => new Codesleeve\Sprockets\Cache\NotCached,
-	
+
 	'concat' => array('production'),
 
 	'sprockets_filter' => 'Codesleeve\Sprockets\SprocketsFilter',

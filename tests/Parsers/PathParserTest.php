@@ -47,4 +47,11 @@ class PathParserTest extends TestCase
 		$output = $this->parser->absolutePathToWebPath($absolutePath);
 		$this->assertEquals($output, "app/application.css");
     }
+
+    public function testDirectoryWithAbsolutePath()
+    {
+        $absolutePath = $this->parser->directoryWithAbsolutePath('pickadate');
+        $output = $this->parser->absolutePathToWebPath($absolutePath);
+        $this->assertEquals($output, "pickadate");
+    }
 }
