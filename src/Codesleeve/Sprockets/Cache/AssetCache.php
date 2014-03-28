@@ -248,6 +248,9 @@ class AssetCache implements AssetCacheInterface
     public function isFileCached($file)
     {
         $asset = new AssetCache(new FileAsset($file), $this->cache);
+
+        $this->cache->setAssetCache($asset);
+
         return $asset->isCached();
     }
 

@@ -57,6 +57,27 @@ class SprocketsGeneratorTest extends TestCase
         $this->assertEquals(substr_count($output, ';'), 2);
     }
 
+
+    public function testThatAManifestThatIncludesAFileThatDependsOnAnotherFileWorks()
+    {
+        $cache = $this->getMock('\Assetic\Cache\CacheInterface');
+
+        $cache->expects($this->any())
+            ->method('has')
+            ->will($this->returnValue(true));
+
+        $cache->expects($this->any())
+            ->method('get')
+            ->will($this->returnValue('no recursion man'));
+
+        $this->generator->config['concat'] = array($this->generator->config['environment']);
+        $this->generator->config['cache_server'] = $cache;
+
+        $output = $this->generator->stylesheet($this->basePath . '/app/assets/stylesheets/manifest10.css');
+
+        $this->assertEquals('no recursion man', $output);
+    }
+
     /**
      * Mock server cache object for testing with
      *
